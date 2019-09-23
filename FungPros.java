@@ -91,25 +91,84 @@ public class FungPros{
         }
 
     }
+    
     public double Cramer(Matriks M,int indeks){
         Matriks A=new Matriks();
         Matriks hasil=new Matriks();
         A.MakeMatriks(M.GetMatrixRow(),M.GetMatrixCol()-1);
         hasil.MakeMatriks(M.GetMatrixRow(),M.GetMatrixCol()-1);
-        A = GetSquare(M);
-        for (i=1;i<=M.GetMatrixRow();i++){
+        A = this.GetSquare(M);
+        for (int i=1;i<=M.GetMatrixRow();i++){
             M.matrix[i][indeks]=M.GetElmtMatriks(i,M.GetMatrixCol());
         }
-        hasil = GetSquare(M);
-        return(Determinan(hasil)/Determinan(A));
+        hasil = this.GetSquare(M);
+        return(this.Determinan(hasil)/this.Determinan(A));
     }
-    public Matriks Kofaktor(Matriks M){
-        Matriks kof = new Matriks();
-        kof.MakeMatriks(M.GetMatrixRow(),M.GetMatrixCol());
-        for(i=1;i<=M.GetMatrixRow();i++){
-            for(j=1;j<=M.GetMatrixCol();j++){
-                if(j)
+    public Matriks GetSubMatriks(Matriks M,int row,int col){
+        int a=1;
+        int b=1;
+        Matriks sub = new Matriks();
+        sub.MakeMatriks(M.GetMatrixRow()-1,M.GetMatrixCol()-1);
+        for(int i=1;i<=M.GetMatrixRow();i++){
+            if (i!=row){
+                for(int j=1;j<=M.GetMatrixCol();j++){
+                    if (j!=col){
+                        sub.matrix[a][b]=M.GetElmtMatriks(i,j);
+                        b++;
+                    }
+                }
+                a++;
+                b=1;
             }
         }
+        return (sub);
+    } 
+    public Matriks Kofaktor(Matriks M){
+        Matriks kof = new Matriks();
+        Matriks subs= new Matriks();
+        subs.MakeMatriks(M.GetMatrixRow()-1,M.GetMatrixCol()-1)
+        kof.MakeMatriks(M.GetMatrixRow(),M.GetMatrixCol());
+        for(int i=1;i<=M.GetMatrixRow();i++){
+            for(int j=1;j<=M.GetMatrixCol();j++){
+                subs = GetSubMatriks(M,i,j);
+                if((i+j)%2==0){
+                    kof.matrix[i][j]=this.Determinan(subs);
+                }else{
+                    kof.matrix[i][j]=(-1)*(this.Determinan(subs));
+                }
+            }
+        }
+        return(kof);
     }
+    public Matriks Adjoin(Matriks M){
+        Matriks koft = new Matriks();
+        koft.MakeMatriks(M.GetMatrixRow(),M.GetMatrixCol());
+        koft = this.Kofaktor(M);
+        return(this.Transpose(koft));
+    }
+    public Matriks KaliKons(Matriks M,float X){
+        Matriks MHasil = new Matriks();
+        MHasil.MakeMatriks(M.GetMatrixRow(),M.GetMatrixCol());
+        for(int i=1;i<=M.GetMatrixRow();i++){
+            for(int j=1;j<M.GetMatrixCol();j++){
+                MHasil.matrix[i][j]=X*M.GetElmtMatriks(i,j);
+            }
+        }
+        return(MHasil);
+    }
+    public Matriks InversKofaktor(Matriks M){
+        Matriks adj = new Matriks();
+        adj.MakeMatriks(M.GetMatrixRow(),M.GetMatrixCol());
+        adj = this.Adjoin(M);
+        float x = 1/(this.determinan(M));
+        return(this.KaliKons(adj,x));
+
+    }
+    public double DetBalikan (Matriks M){
+        Matriks inv = new Matriks ();
+        inv.MakeMatriks(M.GetMatrixRow(),M.GetMatrixCol());
+        inv=this.InversKofaktor(M);
+        return(1/this.Determinan(inv));
+    }
+    
 }
