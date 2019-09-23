@@ -1,13 +1,5 @@
-// Nama Pembuat: Rehan Adi Satrya
-// NIM Pembuat : 13518061
-// Tanggal SubProgram dibuat : Minggu, 15 September 2019
-// Nama File : DagoRediGill.java
-// Program mainnya
 
-package com.ms.matrix;
-import java.util.Scanner;
-
-public class DagoRediGill {
+public class MainMatriks{
 public static void main(String[] args) {
     Scanner scan = new Scanner(System.in);
     System.out.println("Masukkan jumlah persamaan");
@@ -19,7 +11,7 @@ public static void main(String[] args) {
         int matrixCol = scan.nextInt();
 
         //defining 2D array to hold matrix data
-        int[][] matrix = new int[matrixRow][matrixCol];
+        float[][] matrix = new float[matrixRow][matrixCol];
 
         //Main Menu
         System.out.println(" ");
@@ -64,31 +56,4 @@ public static void main(String[] args) {
                 System.out.println("4. Kaidah Cramer");
         }
   }
-  public static void bacaMatriks(Scanner scan, int[][] matrix, int matrixRow, int matrixCol){
-      
-     System.out.println("Masukkan elemen matriks");
-         
-          for (int i = 0; i < (matrixRow); i++)
-          {
-              for (int j = 0; j < (matrixCol); j++)
-              {
-                  matrix[i][j] = scan.nextInt();
-              }
-          }
-  }
-  
-  public static void printMatriks(int[][] matrix, int matrixRow, int matrixCol){
-    System.out.println("Matriks yang kamu inginkan adalah : ");
-        
-        for (int i = 0; i < matrixRow; i++)
-        {
-            for (int j = 0; j < matrixCol; j++)
-            {
-                System.out.print(matrix[i][j]+"\t");
-            }
-             
-            System.out.println();
-        }
-  }
 }
-                        
