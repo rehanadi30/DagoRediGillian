@@ -1,5 +1,5 @@
 
-public class MainRDG{
+public class MainMatriks{
 public static void main(String[] args) {
     Scanner scan = new Scanner(System.in);
     System.out.println("Masukkan jumlah persamaan");
