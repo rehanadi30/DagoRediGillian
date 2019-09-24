@@ -198,7 +198,7 @@ public class FungPros{
         hasil = 0;
         BrsLevel = GetMatrixRow(M);
         KolLevel = GetMatrixCol(M);
-        if (NBrsEff(M) == 2) 
+        if (MP.GetMatrixRow() == 2) 
         {
             hasil = (M.GetElmtMatriks(1,1) * M.GetElmtMatriks(2,2) - M.GetElmtMatriks(1,2) * M.GetElmtMatriks(2,1));
             return hasil; 
@@ -207,12 +207,12 @@ public class FungPros{
             BrsLevel -= 1;
             KolLevel -= 1;
             chosenCol = 1;
-            for (currentKol = 1; currentKol <= NKolEff(M); currentKol++) {
+            for (currentKol = 1; currentKol <= GetMatrixCol(M); currentKol++) {
                 MakeMATRIKS(BrsLevel, KolLevel, &MP);
-                for (i = 2; i <= NBrsEff(M); i++) 
+                for (i = 2; i <= MP.GetMatrixRow(); i++) 
                 {
                     berubah = false;
-                    for (j = 1; j <= NKolEff(M); j++) 
+                    for (j = 1; j <= GetMatrixCol(M); j++) 
                     {
                         if (berubah)
                         {
