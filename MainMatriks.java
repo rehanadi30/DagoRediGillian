@@ -38,6 +38,7 @@ public static void main(String[] args) {
                 System.out.println("2. Metode Eliminasi Gauss-Jordan");
                 System.out.println("3. Metode Matriks Balikan");
                 System.out.println("4. Kaidah Cramer");
+                System.out.println("5. Kembali");
                 bacaMatriks(scan, matrix, matrixRow, matrixCol);
                 
             }
@@ -47,6 +48,7 @@ public static void main(String[] args) {
                 System.out.println("2. Metode Eliminasi Gauss-Jordan");
                 System.out.println("3. Metode Matriks Balikan");
                 System.out.println("4. Kaidah Cramer");
+                System.out.println("5. Kembali");
             }
         else if (b == 3)
         {
@@ -54,6 +56,7 @@ public static void main(String[] args) {
                 System.out.println("2. Metode Eliminasi Gauss-Jordan");
                 System.out.println("3. Metode Matriks Balikan");
                 System.out.println("4. Kaidah Cramer");
+                System.out.println("5. Kembali");
         }
   }
 }

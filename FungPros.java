@@ -1,27 +1,32 @@
+import java.lang.Math; //buat pangkat di determinan
+
 public class FungPros{
-    public static void bacaMatriks(Scanner scan, int matrix[][], int matrixRow, int matrixCol){
-    
+    Scanner scan = new Scanner(System.in);
+
+    public void bacaMatriks(Scanner scan, int matrix[][], int matrixRowCol){
+        Matriks M = new Matriks();
+        M.MakeMatriks(matrixRowCol,matrixRowCol);
         System.out.println("Masukkan elemen matriks");
          
-            for (int i = 0; i < (matrixRow); i++)
+            for (int i = 1; i <= (matrixRowCol); i++)
             {
-                for (int j = 0; j < (matrixCol); j++)
+                for (int j = 1; j <= (matrixRowCol); j++)
                 {
-                    matrix[i][j] = scan.nextInt();
+                    M.matrix[i][j] = scan.nextInt();
                 }
             }
     }
   
-    public static void printMatriks(int matrix[][], int matrixRow, int matrixCol){
+    public void printMatriks(Matriks M, int matrixRow, int matrixCol){
         System.out.println("Matriks yang kamu inginkan adalah : ");
             
-            for (int i = 0; i < matrixRow; i++)
+            for (int i = 1; i <= matrixRow; i++)
             {
-                for (int j = 0; j < matrixCol; j++)
+                for (int j = 1; j <= matrixCol; j++)
                 {
-                    System.out.print(matrix[i][j]+"\t");
+                    System.out.print(M.matrix[i][j]+"\t");
                 }
-                
+
                 System.out.println();
             }
     }
@@ -170,5 +175,65 @@ public class FungPros{
         inv=this.InversKofaktor(M);
         return(1/this.Determinan(inv));
     }
-    
+    public void BacaSPL (int jmlPers, int jmlVar){
+        Matriks SPL = new Matriks();
+        SPL.MakeMatriks(jmlPers,(jmlVar+1));
+        System.out.println("Masukkan SPL: \n");
+        for (int i = 1; i<=jmlPers; i++)
+        {
+            for (int j =1; j<=(jmlVar+1);j++)
+                {
+                    SPL.matrix[i][j] = scan.nextInt();
+                }
+        }
+    }
+
+    double determinan(Matriks M) //Metode Cramer
+    {
+        Matriks MP = new Matriks;
+        MP.MakeMatriks(matrixRowCol,matrixRowCol);
+        double hasil;
+        int i, j, currentKol,currentBrs, BrsLevel, KolLevel, chosenCol;
+        boolean berubah;
+        hasil = 0;
+        BrsLevel = GetMatrixRow(M);
+        KolLevel = GetMatrixCol(M);
+        if (NBrsEff(M) == 2) 
+        {
+            hasil = (M.GetElmtMatriks(1,1) * M.GetElmtMatriks(2,2) - M.GetElmtMatriks(1,2) * M.GetElmtMatriks(2,1));
+            return hasil; 
+        }
+        else {
+            BrsLevel -= 1;
+            KolLevel -= 1;
+            chosenCol = 1;
+            for (currentKol = 1; currentKol <= NKolEff(M); currentKol++) {
+                MakeMATRIKS(BrsLevel, KolLevel, &MP);
+                for (i = 2; i <= NBrsEff(M); i++) 
+                {
+                    berubah = false;
+                    for (j = 1; j <= NKolEff(M); j++) 
+                    {
+                        if (berubah)
+                        {
+                            MP.GetElmtMatriks(i-1,j-1) = M.GetElmtMatriks(i,j);
+                        }
+
+                        else if (j == currentKol) 
+                         {
+                            berubah = true;
+                        }
+                        else 
+                        {
+                            M.GetElmtMatriks(i-1,j) = M.GetElmtMatriks(i,j);
+                        }
+                    
+                }
+            } 
+                         
+            hasil += (M.GetElmtMatriks(1,chosenCol) * Determinan(MP)) * pow(-1,1+chosenCol);
+            chosenCol += 1;
+        }
+        return hasil;
+    }
 }
