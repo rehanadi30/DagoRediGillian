@@ -188,7 +188,7 @@ public class FungPros{
         }
     }
 
-    double determinan(Matriks M) //Metode Cramer
+    double determinanCram(Matriks M) //Metode Cramer
     {
         Matriks MP = new Matriks;
         MP.MakeMatriks(matrixRowCol,matrixRowCol);
@@ -231,9 +231,38 @@ public class FungPros{
                 }
             } 
                          
-            hasil += (M.GetElmtMatriks(1,chosenCol) * Determinan(MP)) * pow(-1,1+chosenCol);
+            hasil += (M.GetElmtMatriks(1,chosenCol) * determinanCram(MP)) * pow(-1,1+chosenCol);
             chosenCol += 1;
         }
         return hasil;
+    }
+    public interpolasi()
+    {
+        double titikInterpolasi = 0; //ini bakal jadi semacam x
+        double hasilInterpolasi = 0; //yang ini nanti jadi  y
+    }
+    public void bacaTitik()
+    {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Masukan titik yang ingin kamu interpolasi: ")
+        titikInterpolasi = sc.nextDouble();
+    }
+    public void duarTitik(int n) //ini tarray titik yang DUARRRR
+    {
+        double duarX = new double[n];
+        double duarY = new double[n];
+    }
+    public void isiTitik(double X, double Y, int i)
+    {
+        duarX[i] = X;
+        duarY[i] = Y;
+    }
+    public void tulisIsiInterpolasi
+    {
+        //nunggu prosesInterpolasiDuar
+    }
+    public void prosesInterpolasiDuar(double isiX, double isiY, boolean GJ)
+    {
+        //nunggu GaussJordan
     }
 }
