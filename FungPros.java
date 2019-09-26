@@ -1,4 +1,5 @@
 import java.lang.Math; //buat pangkat di determinan
+import java.util.Scanner;
 
 public class FungPros{
     Scanner scan = new Scanner(System.in);
@@ -56,47 +57,6 @@ public class FungPros{
             }
         }
     }
-    public double Determinan(Matriks M){ //ini hrus ganti yakk wkwkwk
-        double koef,det;
-        double temp[M.GetMatrixRow()+1][M.GetMatrixCol()+1];
-
-        if(M.GetMatrixRow() == 2)
-        {
-            det =(M.GetElmtMatriks(1,1)*M.GetElmtMatriks(2,2))-(M.GetElmtMatriks(1,2)*M.GetElmtMatriks(2,1));
-            return det;
-        }
-        else 
-        {
-            for (int i=1; i <= M.GetMatrixRow(); i++)
-            {
-                for (int j=1; j <= M.GetMatrixCol(); j++)
-                {
-                    temp[i][j] = M.GetElmtMatriks(i,j);
-                }
-            }
-            for (int i=1; i <= M.GetMatrixRow(); i++)
-            {
-                for (int j=1; j <= M.GetMatrixCol(); j++)
-                {
-                    if (j > i)
-                    {
-                        koef = temp[j][i] / temp[i][i];
-                        for (int k=0; k <= M.GetMatrixRow(); k++)
-                        {
-                            temp[j][k] -= koef * temp[i][k];
-                        }
-                    }
-                }
-            }
-            det = 1;
-            for (int i=1; i <= M.GetMatrixRow(); i++) det *= temp[i][i];
-
-            if (det == 0) return 0;
-            else return det;
-        }
-
-    }
-    
     public double Cramer(Matriks M,int indeks){
         Matriks A=new Matriks();
         Matriks hasil=new Matriks();
@@ -131,7 +91,7 @@ public class FungPros{
     public Matriks Kofaktor(Matriks M){
         Matriks kof = new Matriks();
         Matriks subs= new Matriks();
-        subs.MakeMatriks(M.GetMatrixRow()-1,M.GetMatrixCol()-1)
+        subs.MakeMatriks(M.GetMatrixRow()-1,M.GetMatrixCol()-1);
         kof.MakeMatriks(M.GetMatrixRow(),M.GetMatrixCol());
         for(int i=1;i<=M.GetMatrixRow();i++){
             for(int j=1;j<=M.GetMatrixCol();j++){
@@ -190,7 +150,7 @@ public class FungPros{
 
     double determinanCram(Matriks M) //Metode Cramer
     {
-        Matriks MP = new Matriks;
+        Matriks MP = new Matriks();
         MP.MakeMatriks(matrixRowCol,matrixRowCol);
         double hasil;
         int i, j, currentKol,currentBrs, BrsLevel, KolLevel, chosenCol;
@@ -203,12 +163,14 @@ public class FungPros{
             hasil = (M.GetElmtMatriks(1,1) * M.GetElmtMatriks(2,2) - M.GetElmtMatriks(1,2) * M.GetElmtMatriks(2,1));
             return hasil; 
         }
-        else {
+        else 
+        {
             BrsLevel -= 1;
             KolLevel -= 1;
             chosenCol = 1;
-            for (currentKol = 1; currentKol <= GetMatrixCol(M); currentKol++) {
-                MakeMATRIKS(BrsLevel, KolLevel, &MP);
+            for (currentKol = 1; currentKol <= GetMatrixCol(M); currentKol++) 
+            {
+                MakeMATRIKS(BrsLevel, KolLevel, MP);
                 for (i = 2; i <= MP.GetMatrixRow(); i++) 
                 {
                     berubah = false;
@@ -220,52 +182,23 @@ public class FungPros{
                         }
 
                         else if (j == currentKol) 
-                         {
+                        {
                             berubah = true;
                         }
                         else 
                         {
                             M.GetElmtMatriks(i-1,j) = M.GetElmtMatriks(i,j);
                         }
+                    }
                     
                 }
-            } 
+            }
+        } 
                          
             hasil += (M.GetElmtMatriks(1,chosenCol) * determinanCram(MP)) * pow(-1,1+chosenCol);
             chosenCol += 1;
-        }
-        return hasil;
+            return hasil;
     }
-    public interpolasi()
-    {
-        double titikInterpolasi = 0; //ini bakal jadi semacam x
-        double hasilInterpolasi = 0; //yang ini nanti jadi  y
-    }
-    public void bacaTitik()
-    {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Masukan titik yang ingin kamu interpolasi: ")
-        titikInterpolasi = sc.nextDouble();
-    }
-    public void duarTitik(int n) //ini tarray titik yang DUARRRR
-    {
-        double duarX = new double[n];
-        double duarY = new double[n];
-    }
-    public void isiTitik(double X, double Y, int i)
-    {
-        duarX[i] = X;
-        duarY[i] = Y;
-    }
-    public void tulisIsiInterpolasi
-    {
-        //nunggu prosesInterpolasiDuar
-    }
-    public void prosesInterpolasiDuar(double isiX, double isiY, boolean GJ)
-    {
-        //nunggu GaussJordan
-    }
-      
     public void Gauss(Matriks M){
 	for(int i=1;i<=M.GetMatrixRow();i++){
 		for(int j=i+1;j<=M.GetMatrixRow();j++){
@@ -290,7 +223,7 @@ public class FungPros{
 	     for(int j=M.GetMatrixRow()-1;j>=1;j--){
 			double koef;
 			koef = M.GetElmtMatriks(j,i)/M.GetElmtMatriks(i,i);
-                        M.Matrix[j][M.GetMatrixCol()]=M.Matrix[j][M.GetMatrixCol()]-(koef*(M.Matrix[i][M.GetMatrixCol()]))
+                        M.Matrix[j][M.GetMatrixCol()]=M.Matrix[j][M.GetMatrixCol()]-(koef*(M.Matrix[i][M.GetMatrixCol()]));
 			for(int k=M.GetMatrixCol()-1;k>=1;k--){
 				if (k==i){
 					// 0-in kolom diatasnya
@@ -312,7 +245,7 @@ public class FungPros{
     public double DeterminanGauss(Matriks M){
 	double detgauss=1;
 	for (int i=1;i<=M.GetMatrixRow();i++){
-		detgauss = detgauss * GetElmtDiagonal(i);
+		detgauss = detgauss * (GetElmtDiagonal(i));
 	}
 	return detgauss;
     }
