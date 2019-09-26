@@ -266,43 +266,49 @@ public class FungPros{
         //nunggu GaussJordan
     }
       
-public void Gauss(Matriks M){
-		for(int i=1;i<=M.GetMatrixRow();i++){
-			for(int j=i+1;j<=M.GetMatrixCol();j++){
-				double koef;
-				koef = M.GetElmtMatriks(j,i)/M.GetElmtMatriks(i,i);
-				for(int k=i;k<=M.GetMatrixCol();k++){
-					if (k==i){
-						// 0-in kolom dibawahnya
-						M.matrix[j][k]=0;
-					}
-					else{
-						//kaliin koefisien
-						M.matrix[j][k]=M.matrix[j][k]-(koef*(M.matriks[i][k]));
-					}
+    public void Gauss(Matriks M){
+	for(int i=1;i<=M.GetMatrixRow();i++){
+		for(int j=i+1;j<=M.GetMatrixCol();j++){
+			double koef;
+			koef = M.GetElmtMatriks(j,i)/M.GetElmtMatriks(i,i);
+			for(int k=i;k<=M.GetMatrixCol();k++){
+				if (k==i){
+					// 0-in kolom dibawahnya
+					M.matrix[j][k]=0;
+				}
+				else{
+					//kaliin koefisien
+					M.matrix[j][k]=M.matrix[j][k]-(koef*(M.matriks[i][k]));
 				}
 			}
 		}
-		
-	}
-	public void GaussJordan(Matriks M){
-		Gauss(M);
-		for(int i=M.GetMatrixRow();i>=1;i--){
-			for(int j=iM.GetMatrixCol()+1;j>=1;j--){
-				double koef;
-				koef = M.GetElmtMatriks(j,i)/M.GetElmtMatriks(i,i);
-				for(int k=M.GetMatrixCol();k>=1;k--){
-					if (k==i){
-						// 0-in kolom diatasnya
-						M.matrix[j][k]=0;
-					}
-					else{
-						//kaliin koefisien
-						M.matrix[j][k]=M.matrix[j][k]-(koef*(M.matriks[i][k]));
-					}
+	}	
+    }
+    public void GaussJordan(Matriks M){
+	Gauss(M);
+	for(int i=M.GetMatrixRow();i>=1;i--){
+		for(int j=iM.GetMatrixCol()+1;j>=1;j--){
+			double koef;
+			koef = M.GetElmtMatriks(j,i)/M.GetElmtMatriks(i,i);
+			for(int k=M.GetMatrixCol();k>=1;k--){
+				if (k==i){
+					// 0-in kolom diatasnya
+					M.matrix[j][k]=0;
+				}
+				else{
+					//kaliin koefisien
+					M.matrix[j][k]=M.matrix[j][k]-(koef*(M.matriks[i][k]));
 				}
 			}
 		}
-		
 	}
+		
+    }
+    public double DeterminanGauss(Matriks M){
+	double detgauss=1;
+	for (int i=1;i<=M.GetMatrixRow();i++){
+		detgauss = detgauss * GetElmtDiagonal(i);
+	}
+	return detgauss;
+    }
 }
