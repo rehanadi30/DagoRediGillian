@@ -200,53 +200,54 @@ public class FungPros{
             return hasil;
     }
     public void Gauss(Matriks M){
-	for(int i=1;i<=M.GetMatrixRow();i++){
-		for(int j=i+1;j<=M.GetMatrixRow();j++){
-			double koef;
-			koef = M.GetElmtMatriks(j,i)/M.GetElmtMatriks(i,i);
-			for(int k=i;k<=M.GetMatrixCol();k++){
-				if (k==i){
+		for(int i=1;i<=M.GetMatrixRow();i++){
+			for(int j=i+1;j<=M.GetMatrixRow();j++){
+				double koef;
+				koef = M.GetElmtMatriks(j,i)/M.GetElmtMatriks(i,i);
+				for(int k=i;k<=M.GetMatrixCol();k++){
+					if (k==i){
 					// 0-in kolom dibawahnya
-					M.matrix[j][k]=0;
-				}
-				else{
+						M.matrix[j][k]=0;
+					}
+					else{
 					//kaliin koefisien
-					M.matrix[j][k]=M.matrix[j][k]-(koef*(M.matriks[i][k]));
+						M.matrix[j][k]=M.matrix[j][k]-(koef*(M.matriks[i][k]));
+					}
 				}
 			}
 		}
-	}	
-    }
+		for(int k=1;k<=M.GetMatrixRow();k++){
+			double pembagi=M.Matrix[k][k];
+			for (int l=1;l<=M.GetMatrixCol();l++){
+				M.Matrix[k][l]=(M.Matrix[k][l])/pembagi;
+			}
+		} 
+	} 
+
     public void GaussJordan(Matriks M){
-	this.Gauss(M);
-	for(int i=M.GetMatrixRow();i>=1;i--){
-	     for(int j=M.GetMatrixRow()-1;j>=1;j--){
-			double koef;
-			koef = M.GetElmtMatriks(j,i)/M.GetElmtMatriks(i,i);
-                        M.Matrix[j][M.GetMatrixCol()]=M.Matrix[j][M.GetMatrixCol()]-(koef*(M.Matrix[i][M.GetMatrixCol()]));
-			for(int k=M.GetMatrixCol()-1;k>=1;k--){
-				if (k==i){
+		this.Gauss(M);
+		for(int i=M.GetMatrixRow();i>=1;i--){
+			for(int j=M.GetMatrixRow()-1;j>=1;j--){
+				double koef;
+				koef = M.GetElmtMatriks(j,i)/M.GetElmtMatriks(i,i);
+				M.Matrix[j][M.GetMatrixCol()]=M.Matrix[j][M.GetMatrixCol()]-(koef*(M.Matrix[i][M.GetMatrixCol()]));
+				for(int k=M.GetMatrixCol()-1;k>=1;k--){
+					if (k==i){
 					// 0-in kolom diatasnya
-					M.matrix[j][k]=0;
-				}
-				else{
+						M.matrix[j][k]=0;
+					}
+					else{
 					//kaliin koefisien
-					M.matrix[j][k]=M.matrix[j][k]-(koef*(M.matriks[i][k]));
+						M.matrix[j][k]=M.matrix[j][k]-(koef*(M.matriks[i][k]));
+					}
 				}
 			}
 		}
+		for(int l=1;l<=M.GetMatrixRow();l++){
+			double pembagi=M.Matrix[l][l];
+			for(int m=1;m<=M.GetMatrixRow();m++){
+				M.Matrix[l][m]=(M.Matrix[l][m])/pembagi;
+			} 
+		}	
 	}
-        for(int l=1;l<=M.GetMatrixRow();l++){
-             for(int m=1;m<=M.GetMatrixCol();m++){
-	          M.Matrix[l][m]=(M.Matrix[l][m])/GetElmtDiagonal(l);
-             } 
-        } 
-    }
-    public double DeterminanGauss(Matriks M){
-	double detgauss=1;
-	for (int i=1;i<=M.GetMatrixRow();i++){
-		detgauss = detgauss * (GetElmtDiagonal(i));
-	}
-	return detgauss;
-    }
 }
