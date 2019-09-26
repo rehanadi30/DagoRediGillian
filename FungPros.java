@@ -268,7 +268,7 @@ public class FungPros{
       
     public void Gauss(Matriks M){
 	for(int i=1;i<=M.GetMatrixRow();i++){
-		for(int j=i+1;j<=M.GetMatrixCol();j++){
+		for(int j=i+1;j<=M.GetMatrixRow();j++){
 			double koef;
 			koef = M.GetElmtMatriks(j,i)/M.GetElmtMatriks(i,i);
 			for(int k=i;k<=M.GetMatrixCol();k++){
@@ -287,10 +287,11 @@ public class FungPros{
     public void GaussJordan(Matriks M){
 	this.Gauss(M);
 	for(int i=M.GetMatrixRow();i>=1;i--){
-	     for(int j=iM.GetMatrixCol()+1;j>=1;j--){
+	     for(int j=M.GetMatrixRow()-1;j>=1;j--){
 			double koef;
 			koef = M.GetElmtMatriks(j,i)/M.GetElmtMatriks(i,i);
-			for(int k=M.GetMatrixCol();k>=1;k--){
+                        M.Matrix[j][M.GetMatrixCol()]=M.Matrix[j][M.GetMatrixCol()]-(koef*(M.Matrix[i][M.GetMatrixCol()]))
+			for(int k=M.GetMatrixCol()-1;k>=1;k--){
 				if (k==i){
 					// 0-in kolom diatasnya
 					M.matrix[j][k]=0;
