@@ -285,9 +285,9 @@ public class FungPros{
 	}	
     }
     public void GaussJordan(Matriks M){
-	Gauss(M);
+	this.Gauss(M);
 	for(int i=M.GetMatrixRow();i>=1;i--){
-		for(int j=iM.GetMatrixCol()+1;j>=1;j--){
+	     for(int j=iM.GetMatrixCol()+1;j>=1;j--){
 			double koef;
 			koef = M.GetElmtMatriks(j,i)/M.GetElmtMatriks(i,i);
 			for(int k=M.GetMatrixCol();k>=1;k--){
@@ -302,7 +302,11 @@ public class FungPros{
 			}
 		}
 	}
-		
+        for(int l=1;l<=M.GetMatrixRow();l++){
+             for(int m=1;m<=M.GetMatrixCol();m++){
+	          M.Matrix[l][m]=(M.Matrix[l][m])/GetElmtDiagonal(l);
+             } 
+        } 
     }
     public double DeterminanGauss(Matriks M){
 	double detgauss=1;
