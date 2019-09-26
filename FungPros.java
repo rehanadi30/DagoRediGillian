@@ -217,9 +217,9 @@ public class FungPros{
 			}
 		}
 		for(int k=1;k<=M.GetMatrixRow();k++){
-			double pembagi=M.Matrix[k][k];
+			double pembagi=M.matrix[k][k];
 			for (int l=1;l<=M.GetMatrixCol();l++){
-				M.Matrix[k][l]=(M.Matrix[k][l])/pembagi;
+				M.matrix[k][l]=(M.matrix[k][l])/pembagi;
 			}
 		} 
 	} 
@@ -227,27 +227,55 @@ public class FungPros{
     public void GaussJordan(Matriks M){
 		this.Gauss(M);
 		for(int i=M.GetMatrixRow();i>=1;i--){
-			for(int j=M.GetMatrixRow()-1;j>=1;j--){
+			for(int j=(M.GetMatrixCol()-1);j>=1;j--){
 				double koef;
 				koef = M.GetElmtMatriks(j,i)/M.GetElmtMatriks(i,i);
-				M.Matrix[j][M.GetMatrixCol()]=M.Matrix[j][M.GetMatrixCol()]-(koef*(M.Matrix[i][M.GetMatrixCol()]));
-				for(int k=M.GetMatrixCol()-1;k>=1;k--){
+				for(int k=M.GetMatrixCol();k>=1;k--){
 					if (k==i){
 					// 0-in kolom diatasnya
 						M.matrix[j][k]=0;
 					}
 					else{
 					//kaliin koefisien
-						M.matrix[j][k]=M.matrix[j][k]-(koef*(M.matriks[i][k]));
+						M.matrix[j][k]=M.matrix[j][k]-(koef*(M.matrix[i][k]));
 					}
 				}
 			}
 		}
 		for(int l=1;l<=M.GetMatrixRow();l++){
-			double pembagi=M.Matrix[l][l];
-			for(int m=1;m<=M.GetMatrixRow();m++){
-				M.Matrix[l][m]=(M.Matrix[l][m])/pembagi;
+			double pembagi=M.matrix[l][l];
+			for(int m=1;m<=M.GetMatrixCol();m++){
+				M.matrix[l][m]=(M.matrix[l][m])/pembagi;
 			} 
 		}	
-	}
+    }
+	
+    public Matriks InversGaussJordan(Matriks M){
+		Matriks invers = new Matriks();
+		invers.MakeMatriks((M.GetMatrixRow()*2),(M.GetMatrixCol()*2));
+		for(int i=1;i<=invers.GetMatrixRow();i++){
+			for(int j=1;j<=invers.GetMatrixRow();j++){
+				if (j<=M.GetMatrixCol()){
+					invers.matrix[i][j]=M.matrix[i][j];
+				}
+				else {
+					if ((j-M.GetMatrixCol)==i){
+						invers.matrix[i][j]=1;
+					}
+					else {
+						invers.matrix[i][j]=0;
+					}
+				}
+			}
+		}
+		this.GaussJordan(invers);
+		Matriks hasil = new Matriks();
+		hasil.MakeMatriks(M.GetMatriinversxRow(),M.GetMatrixCol);
+		for(int k=1;k<=hasil.GetMatrixRow();k++){
+			for(int l=1;l<=hasil.GetMatrixRow();l++){ 
+				hasil.matrix[k][l]=invers.matrix[k][l+M.GetMatrixCol()];
+			}
+		}
+		return hasil;
+    }
 }
