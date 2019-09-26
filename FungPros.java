@@ -199,9 +199,10 @@ public class FungPros{
             chosenCol += 1;
             return hasil;
     }
+	
     public void Gauss(Matriks M){
-		for(int i=1;i<=M.GetMatrixRow();i++){
-			for(int j=i+1;j<=M.GetMatrixRow();j++){
+		for(int i=1; i<=M.GetMatrixRow(); i++){
+			for(int j=i+1; j<=M.GetMatrixRow(); j++){
 				double koef;
 				koef = M.GetElmtMatriks(j,i)/M.GetElmtMatriks(i,i);
 				for(int k=i;k<=M.GetMatrixCol();k++){
@@ -216,9 +217,9 @@ public class FungPros{
 				}
 			}
 		}
-		for(int k=1;k<=M.GetMatrixRow();k++){
+		for(int k=1; k<=M.GetMatrixRow(); k++){
 			double pembagi=M.matrix[k][k];
-			for (int l=1;l<=M.GetMatrixCol();l++){
+			for (int l=1; l<=M.GetMatrixCol(); l++){
 				M.matrix[k][l]=(M.matrix[k][l])/pembagi;
 			}
 		} 
@@ -226,8 +227,8 @@ public class FungPros{
 
     public void GaussJordan(Matriks M){
 		this.Gauss(M);
-		for(int i=M.GetMatrixRow();i>=1;i--){
-			for(int j=(M.GetMatrixCol()-1);j>=1;j--){
+		for(int i=M.GetMatrixRow(); i>=1; i--){
+			for(int j=(M.GetMatrixCol()-1); j>=1; j--){
 				double koef;
 				koef = M.GetElmtMatriks(j,i)/M.GetElmtMatriks(i,i);
 				for(int k=M.GetMatrixCol();k>=1;k--){
@@ -242,19 +243,19 @@ public class FungPros{
 				}
 			}
 		}
-		for(int l=1;l<=M.GetMatrixRow();l++){
+		for(int l=1; l<=M.GetMatrixRow(); l++){
 			double pembagi=M.matrix[l][l];
-			for(int m=1;m<=M.GetMatrixCol();m++){
+			for(int m=1; m<=M.GetMatrixCol(); m++){
 				M.matrix[l][m]=(M.matrix[l][m])/pembagi;
 			} 
 		}	
-    }
+	}
 	
-    public Matriks InversGaussJordan(Matriks M){
+	public void InversGaussJordan(Matriks M){
 		Matriks invers = new Matriks();
 		invers.MakeMatriks((M.GetMatrixRow()*2),(M.GetMatrixCol()*2));
-		for(int i=1;i<=invers.GetMatrixRow();i++){
-			for(int j=1;j<=invers.GetMatrixRow();j++){
+		for(int i=1; i<=invers.GetMatrixRow(); i++){
+			for(int j=1; j<=invers.GetMatrixRow(); j++){
 				if (j<=M.GetMatrixCol()){
 					invers.matrix[i][j]=M.matrix[i][j];
 				}
@@ -270,12 +271,38 @@ public class FungPros{
 		}
 		this.GaussJordan(invers);
 		Matriks hasil = new Matriks();
-		hasil.MakeMatriks(M.GetMatriinversxRow(),M.GetMatrixCol);
-		for(int k=1;k<=hasil.GetMatrixRow();k++){
-			for(int l=1;l<=hasil.GetMatrixRow();l++){ 
+		hasil.MakeMatriks(M.GetMatrixRow(),M.GetMatrixCol);
+		for(int k=1; k<=hasil.GetMatrixRow(); k++){
+			for(int l=1; l<=hasil.GetMatrixRow(); l++){ 
 				hasil.matrix[k][l]=invers.matrix[k][l+M.GetMatrixCol()];
 			}
 		}
-		return hasil;
-    }
+		for (int x = 1; x <= hasil.GetMatrixRow(); x++){
+			for (int y = 1; y <= hasil.GetMatrixCol(); y++)
+			{
+				System.out.print(hasil.matrix[x][y]+"\t");
+			}
+
+			System.out.println();
+		}
+	}
+	
+	public SPLGauss(Matriks M){
+		this.Gauss(M);
+		this.GaussJordan(M);
+		System.out.println("Nilai peubah yang didapatkan adalah ; ");
+		for(int i=1; i<=M.GetMatrixRow(); i++){
+			System.out.print("x"+i+" = ");
+			System.out.println(M.matrix[i][M.GetMatrixCol()]);
+		}
+	}
+	
+	public SPLGaussJordan(Matriks M){
+		this.GaussJordan(M);
+		System.out.println("Nilai peubah yang didapatkan adalah ; ");
+		for(int i=1; i<=M.GetMatrixRow(); i++){
+			System.out.print("x"+i+" = ");
+			System.out.println(M.matrix[i][M.GetMatrixCol()]);
+		}
+	}
 }
